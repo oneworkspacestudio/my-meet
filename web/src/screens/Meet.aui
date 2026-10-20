@@ -1,0 +1,109 @@
+Page Meet
+  If condition=$home
+    Row variant=meet-home
+      Stack variant=hero
+        Badge "ONE WORKSPACE"
+        Heading level=1 "Bring everyone together."
+        Text "Video meetings, shared screens and conversations. Hosted by you."
+        Row
+          Button action=new "New meeting"
+          Input name=joinCode placeholder="Enter a meeting code or link"
+          Button variant=secondary action=open "Join"
+        Card
+          Heading level=2 "Plan a meeting"
+          Field label="Meeting title"
+            Input name=title placeholder="Team catch-up"
+          Field label="Date and time"
+            Input name=starts type=datetime-local
+          Button variant=secondary action=schedule "Create meeting link"
+      Stack variant=meeting-list
+        Heading level=2 "Your meetings"
+        If condition=$noMeetings
+          Text "Your recent and scheduled meetings appear here."
+        For each=$meetings
+          Card variant=meeting-card
+            Text $item.title
+            Text variant=caption $item.when
+            Row
+              Button variant=secondary action=meeting item=$item.code $item.label
+              Button variant=secondary action=invite item=$item.code "Copy link"
+  If condition=$prejoin
+    Row variant=prejoin
+      Stack variant=preview
+        Section id=preview
+        Row
+          Button variant=secondary action=preview $previewLabel
+          Button variant=$micVariant action=mic $micLabel
+          Button variant=$cameraVariant action=camera $cameraLabel
+      Stack variant=join-panel
+        Heading level=1 $meeting.title
+        Text $joinStatus
+        Field label="Microphone"
+          Select name=micDevice options=$microphones
+        Field label="Camera"
+          Select name=cameraDevice options=$cameras
+        Button action=join disabled=$waiting $joinLabel
+        Button variant=secondary action=home "Back to meetings"
+        Button variant=secondary action=copy "Copy meeting link"
+        Text variant=caption "MyAccounts identifies participants. The host approves people before they enter."
+  If condition=$inCall
+    Stack variant=meeting
+      Row variant=meeting-heading
+        Heading level=2 $meeting.title
+        Badge tone=$connectionTone $connection
+        Text variant=caption $duration
+        Spacer
+        Button variant=secondary action=copy "Meeting link"
+      Row variant=meeting-content
+        Stack variant=stage
+          Section id=videos
+          If condition=$reaction
+            Text variant=reaction $reaction
+        If condition=$panelOpen
+          Card variant=meeting-panel
+            Row
+              Heading level=2 $panelTitle
+              Spacer
+              Button variant=icon action=closePanel aria-label="Close panel" "×"
+            If condition=$chatOpen
+              Stack variant=messages
+                For each=$messages
+                  Stack variant=message
+                    Text variant=caption $item.name
+                    Text $item.body
+              Row
+                Input name=message placeholder="Send a message to everyone" action=send
+                Button action=send "Send"
+            Else
+              For each=$participants
+                Row
+                  Text $item.label
+                  If condition=$host
+                    Button variant=secondary action=mutePerson item=$item.id "Mute"
+                    Button variant=secondary action=remove item=$item.id "Remove"
+              If condition=$host
+                Divider
+                Heading level=2 "Waiting to join"
+                For each=$waitingMembers
+                  Row
+                    Text $item.name
+                    Button action=admit item=$item.id "Admit"
+                    Button variant=secondary action=deny item=$item.id "Decline"
+                Button variant=secondary action=lock $lockLabel
+                Button variant=danger action=end "End for everyone"
+      Row variant=call-controls
+        Button variant=$micVariant action=mic $micLabel
+        Button variant=$cameraVariant action=camera $cameraLabel
+        Button variant=secondary action=screen $screenLabel
+        Button variant=$handVariant action=hand "Raise hand"
+        Button variant=secondary action=reaction "👏"
+        Button variant=secondary action=chat "Chat"
+        Button variant=secondary action=people $peopleLabel
+        Button variant=secondary action=record $recordLabel
+        Button variant=danger action=leave "Leave"
+  If condition=$showNetwork
+    Card variant=network
+      Heading level=2 "Meeting connection"
+      Text $networkNotice
+      Text $networkPorts
+      Text variant=caption "Local meetings work without a public media port. Remote connections depend on your network setup."

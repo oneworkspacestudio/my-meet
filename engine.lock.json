@@ -1,0 +1,7 @@
+{
+  "repository": "livekit/livekit",
+  "tag": "v1.13.10",
+  "asset": "livekit_1.13.10_windows_amd64.zip",
+  "sha256": "fd4b7c2c3c1e4c71adaa4f6a046ad1c0abaaaf1e09fae904b35bf231ffae11d2",
+  "exeSHA256": "307444d216e09164c990bd24c30d37bfe5ec749f0095e375c9aede1e67005fc1"
+}

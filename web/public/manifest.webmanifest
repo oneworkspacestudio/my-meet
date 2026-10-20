@@ -1,0 +1,1 @@
+{"name": "My Meet", "short_name": "My Meet", "start_url": "./", "display": "standalone", "background_color": "#f5f7fb", "theme_color": "#4452d5", "icons": [{"src": "logo.svg", "sizes": "any", "type": "image/svg+xml"}]}

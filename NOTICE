@@ -1,0 +1,5 @@
+One Workspace my-meet
+Copyright 2026 One Workspace contributors.
+Application shell derived from One Workspace My Tasks (Apache-2.0).
+Bundled media server: LiveKit 1.13.10 (Apache-2.0). Browser SDK: LiveKit client (Apache-2.0). See docs/LIVEKIT-LICENSE.txt and engine.lock.json.
+Third-party notices accompany the Windows archive. This product is not affiliated with Google.

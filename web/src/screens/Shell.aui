@@ -1,0 +1,30 @@
+Page Shell
+  Row variant=topbar
+    Link href="#"
+      Image src=$logo alt=$name width=38 height=38
+    Heading level=2 $name
+    Spacer
+    Text variant=caption $user.name
+    Link href="#settings" "Settings"
+    Button variant=icon action=theme aria-label="Change appearance"
+      Icon name=SunMoon
+    If condition=$workspace
+      Button variant=secondary action=apps "Workspace"
+    Button variant=secondary action=logout "Sign out"
+  If condition=$error
+    Alert tone=error $error
+  If condition=$notice
+    Alert tone=success $notice
+  If condition=$busy
+    Row variant=busy
+      Spinner
+      Text $busy
+  Section id=screen-outlet
+  If condition=$appsOpen
+    Card variant=dialog aria-label="Workspace apps"
+      Row
+        Heading level=2 "Your Workspace apps"
+        Spacer
+        Button variant=secondary action=closeApps "Close"
+      For each=$appLinks
+        Link href=$item.href $item.title

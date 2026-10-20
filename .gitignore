@@ -1,0 +1,8 @@
+web/node_modules/
+internal/webui/dist/
+dist/
+*.exe
+*.syso
+internal/engine/payload/
+.env
+data/
