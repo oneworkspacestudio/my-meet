@@ -6,4 +6,6 @@ Source is I:/Projects/my-meet; suite integration is I:/Projects/one-workspace-ma
 
 Preview1 upload was held as an unpublished draft after source review found camera mute/unmute DOM reattachment and declined-lobby feedback issues. Preview2 corrects both; do not rewrite the preview1 source tag. The HTTP tunnel still needs a separate media network path for remote calling.
 
-Integrated navigation follow-up: explicit shared-picker trigger suppresses the floating launcher, and compact labelled icon controls keep the managed mobile header within the viewport. Meet also binds its signalling grants to the current authenticated app session. Maps2 and Meet3 supersede the initial previews in Workspace53; do not rewrite published assets/tags.
+Integrated navigation follow-up: explicit shared-picker trigger suppresses the floating launcher, and compact labelled icon controls keep the managed mobile header within the viewport. Meet also binds its signalling grants to the current authenticated app session. Maps2 and Meet3 supersede the initial previews in Workspace54; do not rewrite published assets/tags.
+
+Final integrated minimum is Workspace54, incorporating the concurrent Clips4 restart repair. Initial Maps1 and Meet2 releases are public; Maps2/Meet3 are the final integrated candidates. Owner installation remains pending.

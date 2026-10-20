@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "workspaceInstallerIntegration": 2,
-  "minimumWorkspaceVersion": "0.3.0-preview.53",
+  "minimumWorkspaceVersion": "0.3.0-preview.54",
   "repository": "oneworkspacestudio/my-meet",
   "app": "meet",
   "name": "My Meet",
