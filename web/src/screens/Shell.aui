@@ -5,12 +5,17 @@ Page Shell
     Heading level=2 $name
     Spacer
     Text variant=caption $user.name
-    Link href="#settings" "Settings"
+    Link href="#settings" aria-label="Settings"
+      Icon name=Settings2
     Button variant=icon action=theme aria-label="Change appearance"
       Icon name=SunMoon
     If condition=$workspace
-      Button variant=secondary action=apps "Workspace"
-    Button variant=secondary action=logout "Sign out"
+      Button variant=secondary action=apps data-workspace-apps-trigger=true aria-label="Open Workspace apps"
+        Icon name=Layers
+        Text variant=desktop-label "Workspace"
+    Button variant=secondary action=logout aria-label="Sign out"
+      Icon name=LogOut
+      Text variant=desktop-label "Sign out"
   If condition=$error
     Alert tone=error $error
   If condition=$notice

@@ -89,13 +89,13 @@ func New(h *apphost.Host) (*App, error) {
 		apphost.Problem(w, 503, "Meeting engine is starting. Please retry in a moment.")
 	}
 	// Expose only the LiveKit client transport. Admin Twirp APIs stay on loopback.
-	h.Mux.HandleFunc("GET /signal/", func(w http.ResponseWriter, r *http.Request) {
+	h.Mux.HandleFunc("GET /signal/", h.Require(func(w http.ResponseWriter, r *http.Request) {
 		path := strings.TrimPrefix(r.URL.Path, "/signal")
 		if !(path == "/rtc" || path == "/rtc/validate" || path == "/rtc/v1" || path == "/rtc/v1/validate") {
 			http.NotFound(w, r)
 			return
 		}
-		if !a.permittedToken(r.URL.Query().Get("access_token")) {
+		if !a.permittedToken(r.URL.Query().Get("access_token"), apphost.Current(r).User.ID) {
 			apphost.Problem(w, 403, "Rejoin the meeting to refresh your permission")
 			return
 		}
@@ -108,10 +108,10 @@ func New(h *apphost.Host) (*App, error) {
 			}
 		}
 		proxy.ServeHTTP(w, r)
-	})
+	}))
 	return a, nil
 }
-func (a *App) permittedToken(token string) bool {
+func (a *App) permittedToken(token, subject string) bool {
 	parts := strings.Split(token, ".")
 	if len(parts) != 3 {
 		return false
@@ -135,7 +135,7 @@ func (a *App) permittedToken(token string) bool {
 			Join bool   `json:"roomJoin"`
 		} `json:"video"`
 	}
-	if json.Unmarshal(body, &c) != nil || c.Iss != a.key || c.Exp <= time.Now().Unix() || !c.Video.Join {
+	if json.Unmarshal(body, &c) != nil || c.Iss != a.key || c.Sub != subject || c.Exp <= time.Now().Unix() || !c.Video.Join {
 		return false
 	}
 	m, e := a.get(c.Video.Room, c.Sub)

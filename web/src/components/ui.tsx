@@ -1,6 +1,6 @@
 import React,{createContext,useContext} from 'react';
-import {Bell,SunMoon,Plus,Layers,GitBranch,ShieldCheck,Globe,Rocket,Server,UserRound,UsersRound,Settings2,ScrollText,Circle} from 'lucide-react';
-const Icons:Record<string,any>={Bell,SunMoon,Plus,Layers,GitBranch,ShieldCheck,Globe,Rocket,Server,UserRound,UsersRound,Settings2,ScrollText,Circle};
+import {Bell,SunMoon,Plus,Layers,GitBranch,ShieldCheck,Globe,Rocket,Server,UserRound,UsersRound,Settings2,ScrollText,Circle,LogOut} from 'lucide-react';
+const Icons:Record<string,any>={Bell,SunMoon,Plus,Layers,GitBranch,ShieldCheck,Globe,Rocket,Server,UserRound,UsersRound,Settings2,ScrollText,Circle,LogOut};
 
 type FormContext={fields:Record<string,any>;setField:(name:string,value:any)=>void;disabled:boolean;outlet?:React.ReactNode;dismiss?:()=>void;select?:(id:string)=>void;drop?:(id:string)=>void;widgets?:Record<string,React.ReactNode>};
 export const Fields=createContext<FormContext>({fields:{},setField:()=>{},disabled:false});
@@ -20,7 +20,7 @@ export const Heading=(p:Props)=>React.createElement(`h${p.level||2}`,{},children
 export const Text=(p:Props)=>React.createElement(p.variant==='pre'?'pre':p.variant==='code'?'code':'span',{className:cls('text',p)},children(p));
 export const Image=(p:Props)=>React.createElement('img',{src:p.src,alt:p.alt||'',width:p.width,height:p.height,loading:'eager'});
 export const Icon=(p:Props)=>{const Component=(Icons as any)[p.name]||Icons.Circle;return React.createElement(Component,{size:p.size||20,'aria-hidden':true,strokeWidth:1.7});};
-export const Button=(p:Props)=>{const ctx=useContext(Fields);return React.createElement('button',{type:'button',className:cls('button',p),onClick:()=>{if(p.item!==undefined)ctx.select?.(p.item);p.onClick?.()},disabled:p.disabled||ctx.disabled&&!p.cancel,'aria-pressed':p['aria-pressed'],'aria-label':p['aria-label'],title:p['aria-label']},children(p));};
+export const Button=(p:Props)=>{const ctx=useContext(Fields);return React.createElement('button',{type:'button',className:cls('button',p),onClick:()=>{if(p.item!==undefined)ctx.select?.(p.item);p.onClick?.()},disabled:p.disabled||ctx.disabled&&!p.cancel,'aria-pressed':p['aria-pressed'],'aria-label':p['aria-label'],title:p['aria-label'],'data-workspace-apps-trigger':p['data-workspace-apps-trigger']?true:undefined},children(p));};
 export const Link=(p:Props)=>React.createElement('a',{href:p.href,className:cls('link',p),'aria-label':p['aria-label'],target:p.external?'_blank':undefined,rel:p.external?'noopener noreferrer':undefined},children(p));
 export const Field=(p:Props)=>React.createElement('label',{className:'field'},React.createElement('span',{className:'field-label'},p.label),React.createElement(FieldName.Provider,{value:p.label},children(p)));
 export const Input=(p:Props)=>{const ctx=useContext(Fields),label=useContext(FieldName);return React.createElement(p.multiline?'textarea':'input',{onKeyDown:(e:any)=>{if(e.key==='Enter'&&!p.multiline&&p.onClick){e.preventDefault();p.onClick()}},autoFocus:p.autoFocus,rows:p.multiline?5:undefined,name:p.name,placeholder:p.placeholder,type:p.type||'text',value:p.type==='file'?undefined:ctx.fields[p.name]??'',accept:p.accept,multiple:p.multiple,min:p.min,max:p.max,step:p.step,required:p.required,disabled:ctx.disabled,autoComplete:p.autoComplete||'off','aria-label':p['aria-label']||label||p.placeholder||p.name,onChange:(e:React.ChangeEvent<any>)=>ctx.setField(p.name,p.type==='file'?Array.from(e.target.files||[]):e.target.value)});};

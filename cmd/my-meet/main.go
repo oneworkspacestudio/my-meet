@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var version = "0.1.0-preview.2"
+var version = "0.1.0-preview.3"
 
 func main() {
 	if e := apphost.Main(apphost.Config{ID: "meet", Name: "My Meet", Version: version, Listen: "127.0.0.1:9016", MediaCapture: true, Realtime: true}, webui.Files(), func(h *apphost.Host) (apphost.Application, error) { return app.New(h) }); e != nil {

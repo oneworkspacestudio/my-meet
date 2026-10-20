@@ -9,12 +9,18 @@ export function Shell({ data, onAction }: { data: any; onAction: (name: string) 
         <Heading level={2}>{data.name}</Heading>
         <Spacer />
         <Text variant="caption">{data.user.name}</Text>
-        <Link href="#settings">Settings</Link>
+        <Link href="#settings" aria-label="Settings"><Icon name="Settings2" /></Link>
         <Button variant="icon" onClick={() => onAction("theme")} aria-label="Change appearance"><Icon name="SunMoon" /></Button>
         {data.workspace && (
-          <Button variant="secondary" onClick={() => onAction("apps")}>Workspace</Button>
+          <Button variant="secondary" onClick={() => onAction("apps")} data-workspace-apps-trigger={true} aria-label="Open Workspace apps">
+            <Icon name="Layers" />
+            <Text variant="desktop-label">Workspace</Text>
+          </Button>
         )}
-        <Button variant="secondary" onClick={() => onAction("logout")}>Sign out</Button>
+        <Button variant="secondary" onClick={() => onAction("logout")} aria-label="Sign out">
+          <Icon name="LogOut" />
+          <Text variant="desktop-label">Sign out</Text>
+        </Button>
       </Row>
       {data.error && (
         <Alert tone="error">{data.error}</Alert>
